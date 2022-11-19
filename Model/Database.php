@@ -22,13 +22,21 @@ class Database {
                 throw new Exception("Unable to do prepared statement: " . $query);
             }
 
-            if ($params) {
-                $statement->binde_param($parameters[0], $parameters[1]);
+            if ($parameters) {
+                $statement->bind_param($parameters[0], $parameters[1]);
             }
 
             $statement->execute();
+            $results = $statement->get_result();
+            $resultsArray = [];
 
-            return $statement;
+            while($result = $results->fetch_assoc()) {
+                array_push($resultsArray, $result);
+            }
+
+            $statement->close();
+
+            return $resultsArray;
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }

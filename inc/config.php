@@ -1,6 +1,6 @@
 <?php
-define("DB_HOST", "secret");
-define("DB_USERNAME", "secret");
-define("DB_PASSWORD", "secret");
-define("DATABASE_NAME", "secret");
+define("DB_HOST", "localhost");
+define("DB_USERNAME", "root");
+define("DB_PASSWORD", "");
+define("DATABASE_NAME", "test_api");
 ?>
