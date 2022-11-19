@@ -2,16 +2,17 @@
 class UserController extends BaseController {
     public function listAction() {
         $strErrorDesc = '';
-        $requestMethod = $_Server["REQUEST_METHOD"];
+        $requestMethod = $_SERVER["REQUEST_METHOD"];
         $arrQueryStringParams = $this->getQueryStringParams();
 
         if (strtoupper($requestMethod) == 'GET') {
             try {
                 $userModel = new UserModel();
-
+                
                 $intLimit = 5;
+
                 if (isset($arrQueryStringParams['limit']) && $arrQueryStringParams['limit']) {
-                    $intLimit = $arrQueryStringParams['limit'];
+                    $intLimit = (int)$arrQueryStringParams['limit'];
                 }
 
                 $arrUsers = $userModel->getUsers($intLimit);
@@ -27,6 +28,7 @@ class UserController extends BaseController {
 
         if (!$strErrorDesc) {
             $this->sendOutput($responseData, array('Content-Type: application/json', 'HTTP/1.1 200 OK'));
+            echo "fishs";
         } else {
             $this->sendOutput(json_encode(array('error' => $strErrorDesc)), array('Content-Type: application/json', $strErrorHeader));
         }
